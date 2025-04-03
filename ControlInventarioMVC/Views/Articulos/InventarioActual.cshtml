@@ -1,0 +1,23 @@
+﻿@model IEnumerable<dynamic>
+
+<h2>Inventario Actual</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Stock Actual</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+                <tr>
+                    <td>@item.Nombre</td>
+                    <td>@item.Descripcion</td>
+                    <td>@item.StockActual</td>
+                </tr>
+        }
+    </tbody>
+</table>

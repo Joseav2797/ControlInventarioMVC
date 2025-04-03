@@ -1,0 +1,43 @@
+﻿@model IEnumerable<MovimientoInventario>
+
+<h2>Kardex del Artículo</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Fecha Movimiento</th>
+            <th>Ubicación</th>
+            <th>Tipo Movimiento</th>
+            <th>Cantidad</th>
+            <th>Stock Restante</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var movimiento in Model)
+        {
+            <tr>
+                <td>@movimiento.Fecha.ToString("dd/MM/yyyy")</td>
+                <td>@movimiento.Ubicacion.Nombre</td>
+                <td>@movimiento.TipoMovimiento</td>
+                <td>@movimiento.Cantidad</td>
+
+                <!-- Calcular el stock restante -->
+                <td>
+                    @{
+                        int stockRestante = 0;
+                        if (movimiento.TipoMovimiento == "Entrada")
+                        {
+                            stockRestante = movimiento.Articulo.Stock + movimiento.Cantidad;
+                        }
+                        else if (movimiento.TipoMovimiento == "Salida")
+                        {
+                            stockRestante = movimiento.Articulo.Stock - movimiento.Cantidad;
+                        }
+                    }
+                    @stockRestante
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
