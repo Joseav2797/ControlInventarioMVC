@@ -32,7 +32,6 @@ public partial class ControlInventarioDbContext : DbContext
             entity.Property(e => e.Descripcion).HasMaxLength(500);
             entity.Property(e => e.Nombre).HasMaxLength(100);
 
-            // Relación de Articulo con MovimientoInventario
             entity.HasMany(e => e.MovimientoInventario)
                   .WithOne(e => e.Articulo)
                   .HasForeignKey(e => e.ArticuloId);
