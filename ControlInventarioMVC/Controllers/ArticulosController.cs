@@ -92,9 +92,7 @@ namespace ControlInventarioMVC.Controllers
             return View();
         }
 
-        // POST: Articulos/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Nombre,Descripcion")] Articulo articulo)
@@ -124,9 +122,7 @@ namespace ControlInventarioMVC.Controllers
             return View(articulo);
         }
 
-        // POST: Articulos/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Descripcion,Stock")] Articulo articulo)

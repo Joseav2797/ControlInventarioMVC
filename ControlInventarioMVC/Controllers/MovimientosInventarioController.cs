@@ -55,16 +55,13 @@ namespace ControlInventarioMVC.Controllers
             return View();
         }
 
-        // POST: MovimientosInventario/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,ArticuloId,UbicacionId,Cantidad,TipoMovimiento,FechaMovimiento")] MovimientoInventario movimiento)
         {
             List<string> errores = new List<string>();
 
-            // Validaciones generales
+          
             var validaciones = new Dictionary<string, Func<bool>>
     {
         { "ArticuloId", () => movimiento.ArticuloId != 0 },
@@ -82,7 +79,7 @@ namespace ControlInventarioMVC.Controllers
                 }
             }
 
-            // Verificación del stock antes de permitir una salida
+          
             if (movimiento.TipoMovimiento == "Salida")
             {
                 var articulo = await _context.Articulos.FindAsync(movimiento.ArticuloId);
@@ -93,11 +90,11 @@ namespace ControlInventarioMVC.Controllers
                 else if (articulo.Stock < movimiento.Cantidad)
                 {
                     errores.Add("No hay suficiente stock para realizar esta salida.");
-                    ViewBag.StockInsuficiente = true; // Indicador de error en stock insuficiente
+                    ViewBag.StockInsuficiente = true; 
                 }
             }
 
-            // Si hay errores, devolver la vista con los errores y los datos de los selectlists
+   
             if (errores.Any())
             {
                 ViewBag.Errores = errores;
@@ -106,7 +103,7 @@ namespace ControlInventarioMVC.Controllers
                 return View(movimiento);
             }
 
-            // Si las validaciones pasaron, actualizar el stock
+          
             var articuloActual = await _context.Articulos.FindAsync(movimiento.ArticuloId);
             if (articuloActual != null)
             {
@@ -149,9 +146,6 @@ namespace ControlInventarioMVC.Controllers
             return View(movimientoInventario);
         }
 
-        // POST: MovimientosInventario/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,ArticuloId,UbicacionId,Cantidad,Fecha,TipoMovimiento")] MovimientoInventario movimientoInventario)
